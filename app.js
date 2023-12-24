@@ -11,17 +11,13 @@ const fsPromise = require("fs/promises");
     let newFileHandler;
 
     try {
-      // Checks is the file already exists, if not it throws an error and catch block executes
-      newFileHandler = await fsPromise.open(filePath, "r");
-      // Exit the function is file exists
-      console.log(`The file ${filePath} already exists`);
+      // Checks is the file already exists, it it exists it throws error if it don't it will create a file
+      newFileHandler = await fsPromise.open(filePath, "wx");
+
+      console.log("File created successfully");
     } catch (e) {
       // Creating the new file
-      newFileHandler = await fsPromise.open(filePath, "w");
-      console.log("File created successfully");
-    } finally {
-      // Close the opened file
-      newFileHandler.close();
+      console.log(`The file ${filePath} already exists`, e.code);
     }
   };
 
@@ -56,10 +52,9 @@ const fsPromise = require("fs/promises");
   // Writes the content to the specified file
   const addContent = async (filePath, content) => {
     let fileHandler;
-
     try {
       fileHandler = await fsPromise.open(filePath, "w");
-      await fileHandler.write(content); // the buffer to write, offset, length, position
+      await fileHandler.write(content);
       console.log(`The content is written to the ${filePath}`);
     } catch (e) {
       console.log(e.message);
