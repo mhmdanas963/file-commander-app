@@ -53,13 +53,13 @@ const fsPromise = require("fs/promises");
     }
   };
 
+  // Writes the content to the specified file
   const addContent = async (filePath, content) => {
     let fileHandler;
 
     try {
-      const buff = Buffer.from(content, "utf-8");
       fileHandler = await fsPromise.open(filePath, "w");
-      await fileHandler.write(buff, 0, buff.byteLength, 0); // the buffer to write, offset, length, position
+      await fileHandler.write(content); // the buffer to write, offset, length, position
       console.log(`The content is written to the ${filePath}`);
     } catch (e) {
       console.log(e.message);

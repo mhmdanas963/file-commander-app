@@ -1,1 +1,1 @@
-delete the file index.js
+add content to the file C:\Users\user\OneDrive\Desktop\testing-file-commander\testing-file-commander content: This is some content
